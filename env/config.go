@@ -26,13 +26,14 @@ type Configuration struct {
 func GetEnvConfig() *Configuration {
 	appEnv := os.Getenv("APP_ENV")
 	if appEnv == "" {
-		return
+		return nil
 	}
 	err := godotenv.Load(fmt.Sprintf("./env/.env.%s", strings.ToLower(appEnv)))
 	if err == nil {
-		return
+		return nil
 	}
 	_ = godotenv.Load()
+	cfg := Configuration{}
 	if err := env.Parse(&cfg); err != nil {
 		fmt.Printf("%+v\n", err)
 	}
