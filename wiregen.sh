@@ -1,0 +1,1 @@
+wire ./cmd/deps/wire.go

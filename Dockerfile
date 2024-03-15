@@ -10,7 +10,7 @@ COPY ./go.sum .
 RUN go mod download
 COPY . .
 # Build the Go app
-RUN GO111MODULE=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o main ./microservices/main.go
+RUN GO111MODULE=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o main ./cmd/main/main.go
 #
 # Start fresh from a smaller image
 #FROM scratch
