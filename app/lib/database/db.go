@@ -5,6 +5,7 @@ import (
 	"log"
 	"strconv"
 
+	"github.com/HiWay-Media/go-wire-ddd/env"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -14,7 +15,7 @@ import (
 type MyDB *gorm.DB
 
 // config *env.Configuration
-func NewMyDB() MyDB {
+func NewMyDB(config *env.Configuration) MyDB {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", config.DbUsername, config.DbPassword, config.DbHost, config.DbPort, config.DbName)
 	conn, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
