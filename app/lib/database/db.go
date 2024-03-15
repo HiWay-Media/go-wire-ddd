@@ -1,21 +1,24 @@
 package database
 
 import (
-    "log"
+	"fmt"
+	"log"
+	"strconv"
+
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
-
 
 //config, connect and  return connection
 
 type MyDB *gorm.DB
 
-//config *env.Configuration
+// config *env.Configuration
 func NewMyDB() MyDB {
-    dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", config.DbUsername, config.DbPassword, config.DbHost, config.DbPort, config.DbName)
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", config.DbUsername, config.DbPassword, config.DbHost, config.DbPort, config.DbName)
 	conn, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-        log.Fatalf("error connection on %s, err: %s", dsn, err.Error())
+		log.Fatalf("error connection on %s, err: %s", dsn, err.Error())
 	}
 	db, _ := conn.DB()
 	idle, _ := strconv.Atoi(config.DbIdleConn)
